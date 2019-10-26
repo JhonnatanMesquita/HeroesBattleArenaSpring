@@ -1,6 +1,6 @@
 package me.jhonnatanmesquita.heroesbattlearena.controllers;
 
-import me.jhonnatanmesquita.heroesbattlearena.models.Heroi;
+import me.jhonnatanmesquita.heroesbattlearena.dtos.HeroiDto;
 import me.jhonnatanmesquita.heroesbattlearena.services.HeroiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +19,7 @@ public class HeroiController {
     private HeroiService service;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<Heroi>> findAll(){
+    public ResponseEntity<List<HeroiDto>> findAll(){
 
         return ResponseEntity.ok().body(service.findAll());
     }
