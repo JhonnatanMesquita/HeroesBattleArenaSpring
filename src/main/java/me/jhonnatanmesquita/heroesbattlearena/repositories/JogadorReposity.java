@@ -10,5 +10,5 @@ import org.springframework.transaction.annotation.Transactional;
 public interface JogadorReposity extends JpaRepository<Jogador, Integer> {
 
     @Transactional(readOnly = true)
-    Jogador findJogadorsByNickname(String nick);
+    Jogador findByNickname(String nick);
 }

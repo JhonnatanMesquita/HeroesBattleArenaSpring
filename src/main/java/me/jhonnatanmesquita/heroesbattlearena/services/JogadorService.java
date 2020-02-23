@@ -6,6 +6,7 @@ import me.jhonnatanmesquita.heroesbattlearena.models.Jogador;
 import me.jhonnatanmesquita.heroesbattlearena.parsers.JogadorParserDTO;
 import me.jhonnatanmesquita.heroesbattlearena.repositories.JogadorReposity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +21,9 @@ public class JogadorService {
     @Autowired
     private JogadorParserDTO parser;
 
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
     public List<JogadorDto> listar() {
         List<Jogador> jogadorList = repo.findAll();
         return parser.toDTO(jogadorList);
@@ -32,12 +36,13 @@ public class JogadorService {
     }
 
     public JogadorDto findByName(String name){
-        Jogador jogador = repo.findJogadorsByNickname(name);
+        Jogador jogador = repo.findByNickname(name);
         return parser.toDTO(jogador);
     }
 
     public JogadorDto salvar(JogadorInsertDto jogador) {
         Jogador jogadorEnt = parser.toEntity(jogador);
+        jogadorEnt.setSenha(passwordEncoder.encode(jogador.getSenha()));
         repo.save(jogadorEnt);
         return parser.toDTO(jogadorEnt);
     }
