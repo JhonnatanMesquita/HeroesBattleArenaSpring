@@ -2,6 +2,7 @@ package me.jhonnatanmesquita.heroesbattlearena.services;
 
 import javassist.NotFoundException;
 import me.jhonnatanmesquita.heroesbattlearena.dtos.HeroiDto;
+import me.jhonnatanmesquita.heroesbattlearena.exceptions.ObjectNotFoundException;
 import me.jhonnatanmesquita.heroesbattlearena.models.Heroi;
 import me.jhonnatanmesquita.heroesbattlearena.parsers.HeroiParserDTO;
 import me.jhonnatanmesquita.heroesbattlearena.repositories.HeroiRepository;
@@ -23,17 +24,23 @@ public class HeroiService {
 
     public List<HeroiDto> findAll(){
 
-        return parse.toDTO(repo.findAll());
+        List<HeroiDto> herois = parse.toDTO(repo.findAll());
+
+        if(herois.isEmpty()){
+            throw new ObjectNotFoundException("Nenhum herói encontrado!");
+        }
+
+        return herois;
     }
 
-    public HeroiDto findById(Integer id) throws NotFoundException {
+    public HeroiDto findById(Integer id) {
 
         Optional<Heroi> opHeroi = repo.findById(id);
 
         if(opHeroi.isPresent()){
             return parse.toDTO(opHeroi.get());
         }else{
-            throw new NotFoundException("Heroi não encontrado!");
+            throw new ObjectNotFoundException("Herói não encontrado!");
         }
     }
 }

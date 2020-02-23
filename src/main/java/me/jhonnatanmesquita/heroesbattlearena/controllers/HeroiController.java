@@ -21,7 +21,7 @@ public class HeroiController {
     private HeroiService service;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<HeroiDto>> findAll(){
+    public ResponseEntity<List<HeroiDto>> listar(){
         return ResponseEntity.ok().body(service.findAll());
     }
 

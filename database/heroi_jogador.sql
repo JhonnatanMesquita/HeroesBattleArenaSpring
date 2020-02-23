@@ -34,7 +34,8 @@ CREATE TABLE `jogador` (
   CONSTRAINT `fk_new_table_1` FOREIGN KEY (`idHeroi`) REFERENCES `heroi` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-ALTER TABLE `jogador` CHANGE `senha` `senha` VARCHAR(128) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+ALTER TABLE `jogador` CHANGE `senha` `senha` VARCHAR(128) NOT NULL;
+ALTER TABLE `jogador` CHANGE `nickname` `nickname` VARCHAR(45) NOT NULL UNIQUE;
 --
 -- Dumping data for table `jogador`
 --
