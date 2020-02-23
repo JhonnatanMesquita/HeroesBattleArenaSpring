@@ -19,7 +19,6 @@ public class HeroiController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<HeroiDto>> findAll(){
-
         return ResponseEntity.ok().body(service.findAll());
     }
 

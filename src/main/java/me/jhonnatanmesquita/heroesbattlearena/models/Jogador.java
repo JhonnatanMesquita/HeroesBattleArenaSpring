@@ -17,7 +17,7 @@ public class Jogador implements Serializable {
     private String senha;
 
     @ManyToOne
-    @JoinColumn(name="idHeroi")
+    @JoinColumn(name="idheroi")
     private Heroi heroi;
 
     public Jogador() {

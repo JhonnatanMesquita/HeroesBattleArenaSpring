@@ -1,7 +1,11 @@
 package me.jhonnatanmesquita.heroesbattlearena.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "heroi")
@@ -21,6 +25,10 @@ public class Heroi implements Serializable {
 	private Integer velocidade;
 	private Integer forca;
 	private Integer vida;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "heroi")
+	private List<Jogador> jogadores = new ArrayList<>();
 
 	public Heroi() {
 	}

@@ -8,7 +8,7 @@ public class JogadorInsertDto implements Serializable {
 
 	private String nickname;
 	private String senha;
-	private HeroiDto Heroi;
+	private HeroiDto heroi;
 
 	public String getNickname() {
 		return nickname;
@@ -27,10 +27,10 @@ public class JogadorInsertDto implements Serializable {
 	}
 
 	public HeroiDto getHeroi() {
-		return Heroi;
+		return heroi;
 	}
 
 	public void setHeroi(HeroiDto heroi) {
-		Heroi = heroi;
+		this.heroi = heroi;
 	}
 }
