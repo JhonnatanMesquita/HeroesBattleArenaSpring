@@ -6,9 +6,14 @@ import org.springframework.stereotype.Repository;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 public interface JogadorReposity extends JpaRepository<Jogador, Integer> {
 
     @Transactional(readOnly = true)
     Jogador findByNickname(String nick);
+
+    @Transactional(readOnly = true)
+    List<Jogador> findAllByNicknameIsNotContaining(String nick);
 }

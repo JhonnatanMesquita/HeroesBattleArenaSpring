@@ -22,13 +22,18 @@ public class JogadorController {
         return ResponseEntity.ok().body(service.listar());
     }
 
-    @RequestMapping(value = "/nick/{nick}", method = RequestMethod.GET)
+    @RequestMapping(value = "/nickname/{nick}", method = RequestMethod.GET)
     public ResponseEntity<JogadorDto> getByName(@PathVariable(value = "nick") String nick) {
         return ResponseEntity.ok().body(service.findByName(nick));
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<JogadorDto> salvar(@Valid @RequestBody JogadorInsertDto jogador){
+    public ResponseEntity<JogadorDto> salvar(@Valid @RequestBody JogadorInsertDto jogador) {
         return ResponseEntity.ok().body(service.salvar(jogador));
+    }
+
+    @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
+    public ResponseEntity<JogadorDto> getById(@PathVariable(value = "id") Integer id) {
+        return ResponseEntity.ok().body(service.findById(id));
     }
 }

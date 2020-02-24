@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /** Aqui é a classe com as informações que serão entregues ao usuario
  *
- * Seto os dois jogadores, o Log da batalha e uma MenssagemDto
+ * Seto os dois jogadores, o Log da batalha e uma MensagemDto
  *
  * O atributo battleLog é apenas uma String onde eu vou armazenar todos os estados da batalha
  * cada chamada de setBattleLog que é feita na BatalhaService concatena Strings nesse atributo.
@@ -24,7 +24,7 @@ public class BatalhaDto implements Serializable {
     private JogadorDto player;
     private JogadorDto oponente;
     private String battleLog;
-    private MenssagemDto menssagem;
+    private MensagemDto menssagem;
 
 
     public JogadorDto getPlayer() {
@@ -51,11 +51,11 @@ public class BatalhaDto implements Serializable {
         this.battleLog = battleLog;
     }
 
-    public MenssagemDto getMensagem() {
+    public MensagemDto getMensagem() {
         return menssagem;
     }
 
-    public void setMensagem(MenssagemDto mensagem) {
+    public void setMensagem(MensagemDto mensagem) {
         this.menssagem = mensagem;
     }
 }

@@ -8,6 +8,7 @@ import me.jhonnatanmesquita.heroesbattlearena.exceptions.ValidationErrorExceptio
 import me.jhonnatanmesquita.heroesbattlearena.models.Jogador;
 import me.jhonnatanmesquita.heroesbattlearena.parsers.JogadorParserDTO;
 import me.jhonnatanmesquita.heroesbattlearena.repositories.JogadorReposity;
+import me.jhonnatanmesquita.heroesbattlearena.security.UserSS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -39,11 +40,12 @@ public class JogadorService {
 
     public JogadorDto findById(Integer id) {
         Optional<Jogador> jogador = repo.findById(id);
-        JogadorDto jogadorDto = parser.toDTO(jogador.get());
 
-        if(jogadorDto == null || jogadorDto.getNickname() == null){
+        if(!jogador.isPresent()){
             throw new ObjectNotFoundException("Jogador não encontrado!");
         }
+
+        JogadorDto jogadorDto = parser.toDTO(jogador.get());
 
         return jogadorDto;
     }
@@ -72,5 +74,16 @@ public class JogadorService {
         jogadorEnt.setSenha(passwordEncoder.encode(jogador.getSenha()));
         repo.save(jogadorEnt);
         return parser.toDTO(jogadorEnt);
+    }
+
+    public List<JogadorDto> findMatch(){
+        UserSS user = UserService.authenticated();
+        List<Jogador> jogadores = repo.findAllByNicknameIsNotContaining(user.getUsername());
+
+        if(jogadores.isEmpty()){
+            throw new ObjectNotFoundException("Nenhum oponente disponível para batalha");
+        }
+
+        return parser.toDTO(jogadores);
     }
 }

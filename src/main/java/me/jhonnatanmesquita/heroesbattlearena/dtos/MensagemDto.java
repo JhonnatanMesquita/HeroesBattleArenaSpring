@@ -2,7 +2,7 @@ package me.jhonnatanmesquita.heroesbattlearena.dtos;
 
 import java.io.Serializable;
 
-public class MenssagemDto implements Serializable {
+public class MensagemDto implements Serializable {
 
 
     private static final long serialVersionUID = 1L;
