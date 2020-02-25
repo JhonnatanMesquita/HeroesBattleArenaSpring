@@ -20,16 +20,9 @@ public class BatalhaService {
     @Autowired
     private JogadorService jogadorService;
 
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private JWTUtil jwtUtil;
-
-    MensagemDto mensagemDto = new MensagemDto();
-
+    private MensagemDto mensagemDto = new MensagemDto();
     private BatalhaDto batalhaDto = new BatalhaDto();
-    private int turno = 1;
+
     private String espaco = "\n ====================================================== \n";
 
     public BatalhaDto playerBattle(Integer opId) {
@@ -73,6 +66,7 @@ public class BatalhaService {
     }
 
     private void batalha(JogadorDto player, JogadorDto oponente) {
+        int turno = 1;
         batalhaDto.setPlayer(player);
         batalhaDto.setOponente(oponente);
 
@@ -152,7 +146,7 @@ public class BatalhaService {
         batalhaDto.setBattleLog(batalhaDto.getBattleLog().concat(vida));
     }
 
-    public void venceu(HeroiDto heroi, JogadorDto jogador) {
+    private void venceu(HeroiDto heroi, JogadorDto jogador) {
         batalhaDto.setBattleLog(batalhaDto.getBattleLog().concat(espaco));
         batalhaDto.setBattleLog(batalhaDto.getBattleLog().concat("\n\n ========= O Heroi |" + heroi.getNome() + "| do Player |" + jogador.getNickname() + "| foi o campeao! ========="));
         mensagemDto.setStatusBatalha("Finalizada");
@@ -161,7 +155,7 @@ public class BatalhaService {
         batalhaDto.setMensagem(mensagemDto);
     }
 
-    public void empate() {
+    private void empate() {
         batalhaDto.setBattleLog(batalhaDto.getBattleLog().concat("\nEssa batalha nao vai acabar nunca!\n"));
         batalhaDto.setBattleLog(batalhaDto.getBattleLog().concat(espaco));
         batalhaDto.setBattleLog(batalhaDto.getBattleLog().concat("\n\n ========= A batalha terminou em Empate! ========="));

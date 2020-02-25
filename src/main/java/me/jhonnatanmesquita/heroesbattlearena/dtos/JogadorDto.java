@@ -10,7 +10,16 @@ public class JogadorDto implements Serializable {
 	private String nickname;
 	private HeroiDto heroi;
 
-    public Integer getId() {
+	public JogadorDto() {
+	}
+
+	public JogadorDto(Integer id, String nickname, HeroiDto heroi) {
+		this.id = id;
+		this.nickname = nickname;
+		this.heroi = heroi;
+	}
+
+	public Integer getId() {
         return id;
     }
 

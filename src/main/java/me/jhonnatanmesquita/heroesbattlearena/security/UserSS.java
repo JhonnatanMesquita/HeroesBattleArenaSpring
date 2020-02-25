@@ -1,5 +1,9 @@
 package me.jhonnatanmesquita.heroesbattlearena.security;
 
+import me.jhonnatanmesquita.heroesbattlearena.dtos.HeroiDto;
+import me.jhonnatanmesquita.heroesbattlearena.dtos.JogadorDto;
+import me.jhonnatanmesquita.heroesbattlearena.models.Heroi;
+import me.jhonnatanmesquita.heroesbattlearena.parsers.HeroiParserDTO;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,16 +16,18 @@ public class UserSS implements UserDetails {
     private Integer id;
     private String nickname;
     private String senha;
+    private Heroi heroi;
 
     private Collection<? extends GrantedAuthority> authorities;
 
     public UserSS() {
     }
 
-    public UserSS(Integer id, String nickname, String senha) {
+    public UserSS(Integer id, String nickname, String senha, Heroi heroi) {
         this.id = id;
         this.nickname = nickname;
         this.senha = senha;
+        this.heroi = heroi;
     }
 
     public Integer getId(){
@@ -41,6 +47,14 @@ public class UserSS implements UserDetails {
     @Override
     public String getUsername() {
         return nickname;
+    }
+
+    public JogadorDto getJogador(){
+        return new JogadorDto(id, nickname,  new HeroiParserDTO().toDTO(heroi));
+    }
+
+    public Heroi getHeroi(){
+        return heroi;
     }
 
     @Override

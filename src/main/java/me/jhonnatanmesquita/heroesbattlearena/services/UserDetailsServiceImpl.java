@@ -24,6 +24,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException(nickname);
         }
 
-        return new UserSS(jogador.getId(), jogador.getNickname(), jogador.getSenha());
+        return new UserSS(jogador.getId(), jogador.getNickname(), jogador.getSenha(), jogador.getHeroi());
     }
 }

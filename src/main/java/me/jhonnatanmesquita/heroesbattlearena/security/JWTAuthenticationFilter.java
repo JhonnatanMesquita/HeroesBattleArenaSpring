@@ -39,8 +39,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
             UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(creds.getNickname(), creds.getSenha(), new ArrayList<>());
 
-            Authentication auth = authenticationManager.authenticate(authToken);
-            return auth;
+            return authenticationManager.authenticate(authToken);
         }
         catch (IOException e) {
             throw new RuntimeException(e);
@@ -51,19 +50,23 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     protected void successfulAuthentication(HttpServletRequest req,
                                             HttpServletResponse res,
                                             FilterChain chain,
-                                            Authentication auth) throws IOException, ServletException {
+                                            Authentication auth) throws IOException {
 
         String username = ((UserSS) auth.getPrincipal()).getUsername();
         String token = jwtUtil.generateToken(username);
         res.addHeader("Authorization", "Bearer " + token);
         res.addHeader("access-control-expose-headers", "Authorization");
+        res.setContentType("application/json");
+        res.setCharacterEncoding("UTF-8");
+        ObjectMapper mapper = new ObjectMapper();
+        res.getWriter().write(mapper.writeValueAsString(((UserSS) auth.getPrincipal()).getJogador()));
     }
 
     private class JWTAuthenticationFailureHandler implements AuthenticationFailureHandler {
 
         @Override
         public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception)
-                throws IOException, ServletException {
+                throws IOException {
             response.setStatus(401);
             response.setContentType("application/json");
             response.getWriter().append(json());

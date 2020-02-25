@@ -45,7 +45,7 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<StandardError> dataIntegrity(DataIntegrityViolationException e, HttpServletRequest request){
-        StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(), "Integridade de dados", e.getMessage(), request.getRequestURI());
+        StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(), "Erro de validação", "Já existe um usuário cadastrado com este nickname, por favor escolha outro e tente novamente!", request.getRequestURI());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
     }
